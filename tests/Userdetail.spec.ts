@@ -2,6 +2,7 @@
 import { test, expect } from '@playwright/test';
 import { ExcelReader } from '../utilities/ExcelReader';
 
+
 let data: any[];
 let LastName:any,FirstName:any,CotrolType:any,Username:any,Email:any,RankName:any,DOB,DOJ,UserType,CountryName:any,Password:any;
 
@@ -14,6 +15,7 @@ test.beforeAll('Read Excel Data', async () => {
 
     console.log(data[0].Usercode);
     console.log(data[0].Password);
+    
     
     Username = data[0].Usercode;
     Password = data[0].Password;
@@ -29,6 +31,7 @@ test.beforeAll('Read Excel Data', async () => {
 test('login',async({page})=>
     {
         await page.goto('https://uatiino.macksvm.com/main');
+        expect(page).toHaveTitle('SHIP');
   
   await page.getByRole('textbox', { name: 'User ID' }).fill('svmadmin');
   await page.getByRole('textbox', { name: 'User ID' }).press('Tab');
@@ -83,6 +86,7 @@ await emailfield.waitFor({
 });
 
   await expect(emailfield).toBeVisible();
+  
   emailfield.fill(Email);
   //await page.locator('#USD-USD_Email').fill('james@gmail.com');
   await page.waitForTimeout(4000);
@@ -114,5 +118,4 @@ await emailfield.waitFor({
   await page.locator('#USD-USD_UserLocation').fill(CountryName);
   await expect(page.locator('#USD-USD_btnrankdetail-USD_btnrankdetail')).toBeVisible();
   await expect(page.getByRole('button', { name: ' Save' })).toBeVisible();
-
 });
